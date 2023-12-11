@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "removeComments": true,   // xoá comments khi compile
+        "outDir": "dist",   // lúc compile sẽ tạo ra folder dist và tất cả compiled files sẽ vào đây
+        "target": "ES6",     // dùng được ES2015 
+        "module": "CommonJS", // dùng được tiêu chuẩn commonjs
+        "esModuleInterop": true // dùng được import thay cho require
+    }
+}
