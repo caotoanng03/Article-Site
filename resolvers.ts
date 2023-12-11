@@ -8,6 +8,18 @@ export const resolvers = {
             });
 
             return articles;
+        },
+
+        getArticle: async (_, args) => {
+            // args is an object contains passed arguments
+            const { id } = args;
+
+            const abc = await Article.findOne({
+                _id: id,
+                deleted: false
+            });
+
+            return abc;
         }
     }
 };

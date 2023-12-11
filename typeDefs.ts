@@ -8,8 +8,9 @@ export const typeDefs = gql`
         avatar: String
         description: String,
     }
-    
+
     type Query {
         getAllArticle: [Article]
+        getArticle(id: ID!): Article
     }
 `;
