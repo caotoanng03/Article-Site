@@ -14,12 +14,23 @@ export const resolvers = {
             // args is an object contains passed arguments
             const { id } = args;
 
-            const abc = await Article.findOne({
+            const article = await Article.findOne({
                 _id: id,
                 deleted: false
             });
 
-            return abc;
+            return article;
+        }
+    },
+
+    Mutation: {
+        createArticle: async (_, args) => {
+            const { article } = args;
+
+            const record = new Article(article);
+            await record.save();
+
+            return record;
         }
     }
 };
