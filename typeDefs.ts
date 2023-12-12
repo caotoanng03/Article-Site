@@ -5,16 +5,32 @@ export const typeDefs = gql`
     type Article {
         id: ID,
         title: String,
-        avatar: String
+        avatar: String,
         description: String,
     }
 
+    type Category {
+        id: ID,
+        title: String,
+        avatar: String,
+        description: String
+    }
+
     type Query {
-        getAllArticle: [Article]
+        getListArticle: [Article]
         getArticle(id: ID!): Article
+
+        getListCategory: [Category]
+        getCategory(id: ID!): Category
     }
 
     input ArticleInput {
+        title: String!,
+        avatar: String,
+        description: String
+    }
+
+    input CategoryInput {
         title: String!,
         avatar: String,
         description: String
@@ -24,5 +40,9 @@ export const typeDefs = gql`
         createArticle(article: ArticleInput): Article,
         deleteArticle(id: ID!): String,
         updateArticle(id: ID!, article: ArticleInput): Article
+
+        createCategory(category: CategoryInput): Category,
+        deleteCategory(id: ID!): String,
+        updateCategory(id: ID!, category: CategoryInput): Category 
     }
 `;
