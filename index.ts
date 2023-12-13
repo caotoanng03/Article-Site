@@ -4,7 +4,7 @@ import * as database from "./config/database";
 import { ApolloServer, gql } from "apollo-server-express";
 
 import { typeDefs } from "./typeDefs/index.typeDefs";
-import { resolvers } from "./resolvers";
+import { resolvers } from "./resolvers/index.resolvers";
 
 async function startServer() {
     dotenv.config();
