@@ -2,6 +2,32 @@ import md5 from "md5";
 import User from "../models/user.model";
 
 const resolversUser = {
+    Query: {
+        getUser: async (_, args) => {
+            try {
+                const { id } = args;
+
+                const user = await User.findOne({
+                    _id: id,
+                    deleted: false
+                }).select("-password");
+
+                return {
+                    code: 200,
+                    message: "Succeed!",
+                    id: user.id,
+                    fullName: user.fullName,
+                    email: user.email,
+                    token: user.token
+                }
+            } catch (error) {
+                return {
+                    code: 400,
+                    message: "Wrong Id!"
+                };
+            };
+        },
+    },
 
     Mutation: {
         registerUser: async (_, args) => {
