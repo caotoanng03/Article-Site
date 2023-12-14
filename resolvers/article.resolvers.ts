@@ -10,7 +10,8 @@ const resolversArticle = {
                 currentPage,
                 limitItems,
                 filterKey,
-                filterValue
+                filterValue,
+                keyword
             } = args;
 
             // find
@@ -22,6 +23,13 @@ const resolversArticle = {
                 find[filterKey] = filterValue;
             }
             // end find
+
+            // search
+            if (keyword) {
+                const regexKeyword = new RegExp(keyword, "i");
+                find["title"] = regexKeyword
+            }
+            // end serch
 
             // sort
             const sort = {};
