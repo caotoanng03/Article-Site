@@ -42,7 +42,46 @@ const resolversUser = {
                 email: data.email,
                 token: data.token
             };
-        }
+        },
+
+        loginUser: async (_, args) => {
+            const { email, password } = args.user;
+
+            if (!email) {
+                return {
+                    code: 400,
+                    message: "Email can not be empty!"
+                };
+            };
+
+            const user = await User.findOne({
+                email: email,
+                deleted: false
+            });
+
+            if (!user) {
+                return {
+                    code: 400,
+                    message: "Email does not exists!"
+                };
+            };
+
+            if (user.password != md5(password)) {
+                return {
+                    code: 400,
+                    message: "Password is incorrect!"
+                };
+            };
+
+            return {
+                id: user.id,
+                fullName: user.fullName,
+                email: user.email,
+                token: user.token,
+                code: 200,
+                message: "User logined successfully!"
+            }
+        },
     }
 }
 
