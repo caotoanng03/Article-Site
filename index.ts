@@ -5,6 +5,7 @@ import { ApolloServer, gql } from "apollo-server-express";
 
 import { typeDefs } from "./typeDefs/index.typeDefs";
 import { resolvers } from "./resolvers/index.resolvers";
+import { requireAuth } from "./middlewares/auth.middleware";
 
 async function startServer() {
     dotenv.config();
@@ -14,9 +15,14 @@ async function startServer() {
     const port: string | number = process.env.PORT || 8100;
 
     // GraphQL
+    app.use("/graphql", requireAuth);
+
     const apolloServer = new ApolloServer({
         typeDefs,
-        resolvers
+        resolvers,
+        context: ({ req }) => {
+            return { ...req };
+        }
     });
 
     await apolloServer.start();

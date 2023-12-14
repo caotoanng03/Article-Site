@@ -3,12 +3,10 @@ import User from "../models/user.model";
 
 const resolversUser = {
     Query: {
-        getUser: async (_, args) => {
+        getUser: async (_, args, context) => {
             try {
-                const { id } = args;
-
                 const user = await User.findOne({
-                    _id: id,
+                    token: context["user"].token,
                     deleted: false
                 }).select("-password");
 
@@ -20,10 +18,11 @@ const resolversUser = {
                     email: user.email,
                     token: user.token
                 }
+
             } catch (error) {
                 return {
                     code: 400,
-                    message: "Wrong Id!"
+                    message: "Invalid Token!"
                 };
             };
         },
